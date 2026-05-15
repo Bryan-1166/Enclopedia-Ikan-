@@ -1,0 +1,615 @@
+/* ============================================================
+   ENSIKLOPEDIA IKAN — STYLESHEET
+   style.css
+   ============================================================ */
+
+/* ---- CSS Variables / Tema Warna ---- */
+:root {
+  --ocean-deep:     #0a1a3a;   /* biru tua gelap */
+  --ocean-mid:      #0e3566;   /* biru tua */
+  --ocean-blue:     #1565c0;   /* biru sedang */
+  --ocean-light:    #1e88e5;   /* biru muda */
+  --ocean-cyan:     #00bcd4;   /* cyan */
+  --ocean-aqua:     #26c6da;   /* aqua terang */
+  --sand:           #f0e6c8;   /* pasir muda */
+  --sand-dark:      #d4b896;   /* pasir tua */
+  --sand-warm:      #e8d5a3;   /* pasir hangat */
+  --white:          #ffffff;
+  --text-dark:      #0d2137;
+  --text-mid:       #1a4a6b;
+  --accent-cyan:    #00e5ff;
+  --accent-teal:    #00bfa5;
+  --badge-deepsea-bg:   rgba(0, 188, 212, 0.9);
+  --badge-freshwater-bg: rgba(56, 189, 248, 0.9);
+  --card-shadow:    0 8px 32px rgba(10, 26, 58, 0.18);
+  --transition:     0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---- Reset & Base ---- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--ocean-deep);
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* ============================================================
+   HERO / HEADER
+   ============================================================ */
+.hero {
+  position: relative;
+  background: linear-gradient(160deg,
+    var(--ocean-deep) 0%,
+    var(--ocean-mid) 30%,
+    var(--ocean-blue) 60%,
+    var(--ocean-cyan) 100%
+  );
+  padding: 3.5rem 1.5rem 7rem;
+  text-align: center;
+  overflow: hidden;
+  min-height: 340px;
+}
+
+/* Dekorasi bulatan cahaya di hero */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -80px; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 400px;
+  background: radial-gradient(ellipse, rgba(0,229,255,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content { position: relative; z-index: 2; }
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  margin-bottom: 0.5rem;
+}
+
+.logo-icon { font-size: 2.2rem; }
+
+.logo h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  color: var(--white);
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 16px rgba(0,0,0,0.3);
+}
+
+.subtitle {
+  color: rgba(255,255,255,0.78);
+  font-size: 1rem;
+  font-weight: 300;
+  margin-bottom: 2rem;
+  letter-spacing: 0.3px;
+}
+
+/* ---- Search ---- */
+.search-wrapper {
+  position: relative;
+  max-width: 560px;
+  margin: 0 auto 1.8rem;
+}
+
+.search-icon {
+  position: absolute;
+  left: 1.1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1rem;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.search-input {
+  width: 100%;
+  padding: 0.9rem 1.2rem 0.9rem 2.8rem;
+  border-radius: 50px;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.95);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.97rem;
+  color: var(--text-dark);
+  outline: none;
+  transition: border var(--transition), box-shadow var(--transition);
+  box-shadow: 0 4px 24px rgba(0,0,0,0.15);
+}
+
+.search-input:focus {
+  border-color: var(--accent-cyan);
+  box-shadow: 0 0 0 4px rgba(0,229,255,0.18);
+}
+
+/* ---- Filter Buttons ---- */
+.filter-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.filter-btn {
+  padding: 0.6rem 1.4rem;
+  border-radius: 50px;
+  border: 2px solid rgba(255,255,255,0.3);
+  background: rgba(255,255,255,0.12);
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--transition);
+  backdrop-filter: blur(8px);
+}
+
+.filter-btn:hover {
+  background: rgba(255,255,255,0.25);
+  border-color: rgba(255,255,255,0.6);
+}
+
+.filter-btn.active {
+  background: var(--white);
+  color: var(--ocean-mid);
+  border-color: var(--white);
+  font-weight: 600;
+}
+
+/* ---- Waves ---- */
+.wave-container {
+  position: absolute;
+  bottom: -2px; left: 0; right: 0;
+  height: 120px;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.wave {
+  position: absolute;
+  bottom: 0; left: 0;
+  width: 100%; height: 100%;
+}
+
+.wave-1 path { fill: var(--sand); opacity: 0.25; }
+.wave-2 path { fill: var(--sand-warm); opacity: 0.35; }
+.wave-3 path { fill: var(--sand); opacity: 0.55; }
+
+/* ============================================================
+   MAIN CONTENT
+   ============================================================ */
+.main-content {
+  position: relative;
+  background: linear-gradient(180deg,
+    var(--sand) 0%,
+    var(--sand-warm) 4%,
+    #cce8f4 10%,
+    #a8d8ef 18%,
+    #6cb8e0 28%,
+    #3d8fc4 40%,
+    #1a5fa0 60%,
+    var(--ocean-mid) 80%,
+    var(--ocean-deep) 100%
+  );
+  min-height: 80vh;
+  padding-bottom: 6rem;
+}
+
+/* Ocean layered depth decoration */
+.ocean-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.ocean-layer {
+  position: absolute;
+  left: 0; right: 0;
+  border-radius: 50% 50% 0 0 / 20px;
+}
+
+.layer-1 { top: 2%;  height: 90px;  background: rgba(0,188,212,0.08); }
+.layer-2 { top: 12%; height: 120px; background: rgba(21,101,192,0.07); }
+.layer-3 { top: 28%; height: 160px; background: rgba(10,26,58,0.08); }
+.layer-4 { top: 50%; height: 200px; background: rgba(10,26,58,0.10); }
+.layer-5 { top: 72%; height: 280px; background: rgba(10,26,58,0.12); }
+
+.container {
+  position: relative;
+  z-index: 1;
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 2rem;
+}
+
+/* ---- Section Header ---- */
+.section-header {
+  margin-bottom: 1.6rem;
+}
+
+.section-header h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.6rem;
+  color: var(--text-dark);
+  text-shadow: 0 1px 8px rgba(255,255,255,0.5);
+}
+
+.section-count {
+  font-size: 0.88rem;
+  color: var(--text-mid);
+  margin-top: 0.15rem;
+  font-weight: 400;
+}
+
+/* ============================================================
+   FISH CARDS GRID
+   ============================================================ */
+.fish-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.6rem;
+}
+
+/* ---- Individual Card ---- */
+.fish-card {
+  background: rgba(255,255,255,0.96);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: transform var(--transition), box-shadow var(--transition);
+  display: flex;
+  flex-direction: column;
+  animation: cardAppear 0.45s ease both;
+}
+
+.fish-card:hover {
+  transform: translateY(-6px) scale(1.012);
+  box-shadow: 0 16px 48px rgba(10,26,58,0.28);
+}
+
+@keyframes cardAppear {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Card Image ---- */
+.card-img-wrap {
+  position: relative;
+  height: 210px;
+  overflow: hidden;
+  background: var(--ocean-deep);
+}
+
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.5s ease;
+}
+
+.fish-card:hover .card-img-wrap img {
+  transform: scale(1.06);
+}
+
+/* ---- Badge (deepsea / freshwater) ---- */
+
+/*
+  CATATAN: Warna badge diatur di sini.
+  .badge-deepsea = laut dalam (cyan)
+  .badge-freshwater = air tawar (biru muda)
+*/
+.badge {
+  position: absolute;
+  top: 12px; right: 12px;
+  padding: 0.28rem 0.85rem;
+  border-radius: 50px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: var(--white);
+  text-transform: lowercase;
+  backdrop-filter: blur(6px);
+}
+
+.badge-deepsea    { background: var(--badge-deepsea-bg); }
+.badge-freshwater { background: var(--badge-freshwater-bg); }
+
+/* ---- Card Body ---- */
+.card-body {
+  padding: 1.25rem 1.3rem 1.4rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: var(--text-dark);
+  margin-bottom: 0.2rem;
+}
+
+.card-scientific {
+  font-size: 0.82rem;
+  color: var(--ocean-light);
+  font-style: italic;
+  margin-bottom: 0.9rem;
+}
+
+.card-info { flex: 1; }
+
+.card-info-row {
+  display: flex;
+  gap: 0.4rem;
+  font-size: 0.86rem;
+  color: var(--text-mid);
+  margin-bottom: 0.35rem;
+  line-height: 1.5;
+}
+
+.card-info-label {
+  color: var(--ocean-mid);
+  font-weight: 600;
+  min-width: 70px;
+  flex-shrink: 0;
+}
+
+/* ---- Lihat Detail Button ---- */
+.btn-detail {
+  display: block;
+  width: 100%;
+  margin-top: 1.1rem;
+  padding: 0.72rem 1rem;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(90deg, var(--ocean-cyan), var(--ocean-light));
+  color: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity var(--transition), transform var(--transition);
+  letter-spacing: 0.3px;
+}
+
+.btn-detail:hover {
+  opacity: 0.88;
+  transform: scale(1.02);
+}
+
+/* ---- Catatan & Catatan Unik (Card) ---- */
+.card-catatan-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0.9rem 0 0;
+}
+
+.card-catatan {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  background: #eef6ff;
+  border-left: 3px solid var(--ocean-light);
+  border-radius: 8px;
+  padding: 0.55rem 0.75rem;
+  font-size: 0.8rem;
+  color: var(--text-mid);
+  line-height: 1.5;
+}
+
+.card-catatan-unik {
+  background: #fff8e8;
+  border-left-color: #f59e0b;
+  color: #7c5a00;
+}
+
+.catatan-icon {
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ---- No Result ---- */
+.no-result {
+  text-align: center;
+  color: var(--ocean-mid);
+  font-size: 1rem;
+  padding: 3rem;
+  background: rgba(255,255,255,0.6);
+  border-radius: 16px;
+  backdrop-filter: blur(8px);
+}
+
+/* ============================================================
+   MODAL DETAIL
+   ============================================================ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10,26,58,0.72);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  backdrop-filter: blur(4px);
+  animation: fadeIn 0.2s ease;
+}
+
+.modal-overlay.open { display: flex; }
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.modal-box {
+  background: var(--white);
+  border-radius: 22px;
+  overflow: hidden;
+  max-width: 620px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  animation: slideUp 0.3s cubic-bezier(0.34,1.56,0.64,1);
+  box-shadow: 0 32px 80px rgba(0,0,0,0.4);
+}
+
+@keyframes slideUp {
+  from { transform: translateY(40px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.modal-close {
+  position: absolute;
+  top: 14px; right: 16px;
+  background: rgba(255,255,255,0.85);
+  border: none;
+  border-radius: 50%;
+  width: 36px; height: 36px;
+  font-size: 1rem;
+  cursor: pointer;
+  z-index: 10;
+  backdrop-filter: blur(6px);
+  transition: background var(--transition);
+}
+
+.modal-close:hover { background: rgba(255,255,255,1); }
+
+.modal-img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  display: block;
+}
+
+.modal-body { padding: 1.6rem 1.8rem 2rem; }
+
+.modal-body .badge {
+  position: static;
+  display: inline-block;
+  margin-bottom: 0.7rem;
+}
+
+.modal-body h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.7rem;
+  color: var(--text-dark);
+  margin-bottom: 0.2rem;
+}
+
+.modal-scientific {
+  font-style: italic;
+  color: var(--ocean-light);
+  font-size: 0.9rem;
+  margin-bottom: 1.2rem;
+}
+
+.modal-info {
+  background: #f0f7ff;
+  border-radius: 12px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1.2rem;
+}
+
+.info-row {
+  display: flex;
+  gap: 0.6rem;
+  font-size: 0.88rem;
+  color: var(--text-mid);
+  padding: 0.4rem 0;
+  border-bottom: 1px solid rgba(30,136,229,0.1);
+}
+
+.info-row:last-child { border-bottom: none; }
+
+.info-label {
+  font-weight: 700;
+  color: var(--ocean-mid);
+  min-width: 90px;
+  flex-shrink: 0;
+}
+
+.modal-deskripsi {
+  font-size: 0.92rem;
+  color: var(--text-mid);
+  line-height: 1.75;
+}
+
+/* ---- Modal Catatan boxes ---- */
+.modal-catatan-box {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  background: #eef6ff;
+  border-left: 4px solid var(--ocean-light);
+  border-radius: 10px;
+  padding: 0.85rem 1rem;
+  margin-top: 0.9rem;
+  font-size: 0.88rem;
+  color: var(--text-mid);
+  line-height: 1.6;
+}
+
+.modal-catatan-unik-box {
+  background: #fff8e8;
+  border-left-color: #f59e0b;
+  color: #7c5a00;
+}
+
+.modal-catatan-box strong {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 0.2rem;
+  color: var(--ocean-mid);
+}
+
+.modal-catatan-unik-box strong { color: #92610a; }
+
+.modal-catatan-box p { margin: 0; }
+
+.modal-catatan-icon {
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+.footer {
+  text-align: center;
+  padding: 1.8rem 1rem;
+  background: var(--ocean-deep);
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 768px) {
+  .fish-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); }
+  .logo h1  { font-size: 1.6rem; }
+  .hero     { padding: 2.5rem 1rem 6rem; }
+}
+
+@media (max-width: 480px) {
+  .fish-grid { grid-template-columns: 1fr; }
+  .filter-buttons { gap: 0.5rem; }
+  .filter-btn { font-size: 0.82rem; padding: 0.5rem 1rem; }
+}

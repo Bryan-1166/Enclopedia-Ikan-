@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ensiklopedia Ikan</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ========== HEADER / HERO ========== -->
+  <header class="hero">
+    <div class="wave-container">
+      <svg class="wave wave-1" viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,60 C360,120 1080,0 1440,60 L1440,120 L0,120 Z"/></svg>
+      <svg class="wave wave-2" viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,80 C400,20 1040,100 1440,40 L1440,120 L0,120 Z"/></svg>
+      <svg class="wave wave-3" viewBox="0 0 1440 120" preserveAspectRatio="none"><path d="M0,50 C480,110 960,10 1440,70 L1440,120 L0,120 Z"/></svg>
+    </div>
+
+    <div class="hero-content">
+      <div class="logo">
+        <span class="logo-icon">🐟</span>
+        <h1>Ensiklopedia Ikan</h1>
+      </div>
+      <p class="subtitle">Jelajahi dunia kehidupan akuatik yang menakjubkan</p>
+
+      <!-- ========== SEARCH BAR ========== -->
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input
+          type="text"
+          id="searchInput"
+          class="search-input"
+          placeholder="Cari spesies ikan..."
+          oninput="filterFish()"
+        />
+      </div>
+
+      <!-- ========== FILTER BUTTONS ========== -->
+      <div class="filter-buttons">
+        <button class="filter-btn active" onclick="setFilter('semua', this)">🌐 Semua Ikan</button>
+        <button class="filter-btn" onclick="setFilter('deepsea', this)">🌊 Laut Dalam</button>
+        <button class="filter-btn" onclick="setFilter('freshwater', this)">💧 Air Tawar</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ========== MAIN CONTENT ========== -->
+  <main class="main-content">
+
+    <!-- Ocean layered background decoration -->
+    <div class="ocean-bg">
+      <div class="ocean-layer layer-1"></div>
+      <div class="ocean-layer layer-2"></div>
+      <div class="ocean-layer layer-3"></div>
+      <div class="ocean-layer layer-4"></div>
+      <div class="ocean-layer layer-5"></div>
+    </div>
+
+    <div class="container">
+      <div class="section-header">
+        <h2 id="sectionTitle">Semua Spesies</h2>
+        <p id="sectionCount" class="section-count">Menampilkan <span id="fishCount">10</span> spesies</p>
+      </div>
+
+      <!-- ========== FISH CARDS GRID ========== -->
+      <!-- 
+        ============================================================
+        DATA IKAN — BAGIAN YANG PERLU DIISI / DIEDIT
+        Data ikan dikelola melalui JavaScript di file script.js
+        Cari bagian: // ===== DATA IKAN ===== di file script.js
+        ============================================================
+      -->
+      <div class="fish-grid" id="fishGrid">
+        <!-- Kartu ikan akan di-render otomatis oleh script.js -->
+      </div>
+
+      <p class="no-result" id="noResult" style="display:none;">Tidak ada ikan yang ditemukan.</p>
+    </div>
+  </main>
+
+  <!-- ========== MODAL DETAIL ========== -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-box" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <img id="modalImg" src="" alt="" class="modal-img" />
+      <div class="modal-body">
+        <span id="modalBadge" class="badge"></span>
+        <h2 id="modalName"></h2>
+        <p id="modalScientific" class="modal-scientific"></p>
+        <div class="modal-info">
+          <div class="info-row"><span class="info-label">Habitat</span><span id="modalHabitat"></span></div>
+          <div class="info-row"><span class="info-label">Ukuran</span><span id="modalUkuran"></span></div>
+          <div class="info-row"><span class="info-label">Makanan</span><span id="modalMakanan"></span></div>
+          <div class="info-row"><span class="info-label">Kedalaman</span><span id="modalKedalaman"></span></div>
+          <div class="info-row"><span class="info-label">Status</span><span id="modalStatus"></span></div>
+          <div class="info-row" id="modalMorfologiRow"><span class="info-label">Morfologi</span><span id="modalMorfologi"></span></div>
+        </div>
+        <p id="modalDeskripsi" class="modal-deskripsi"></p>
+
+        <!-- Catatan -->
+        <div id="modalCatatanWrap" class="modal-catatan-box">
+          <span class="modal-catatan-icon">📝</span>
+          <div>
+            <strong>Catatan</strong>
+            <p id="modalCatatan"></p>
+          </div>
+        </div>
+
+        <!-- Catatan Unik -->
+        <div id="modalCatatanUnikWrap" class="modal-catatan-box modal-catatan-unik-box">
+          <span class="modal-catatan-icon">⭐</span>
+          <div>
+            <strong>Fakta Unik</strong>
+            <p id="modalCatatanUnik"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <p>🐠 Ensiklopedia Ikan &copy; 2026 — Menjelajahi keajaiban ikan yang ada pada bawah laut dan air tawar</p>
+    <br>
+    <p>Team Bryan,Jovan, Adit, dan Yoga</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
