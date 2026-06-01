@@ -319,8 +319,20 @@ body {
   backdrop-filter: blur(6px);
 }
 
-.badge-deepsea    { background: var(--badge-deepsea-bg); }
-.badge-freshwater { background: var(--badge-freshwater-bg); }
+.badge-deepsea {
+  background: rgb(28, 0, 208);
+  color: white;
+}
+
+.badge-freshwater {
+  background: var(--badge-freshwater-bg);
+  color: white;
+}
+
+.badge-prehistoric {
+  background: #8b4513;
+  color: white;
+}
 
 /* ---- Card Body ---- */
 .card-body {
