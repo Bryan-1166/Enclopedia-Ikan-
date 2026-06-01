@@ -327,8 +327,8 @@ function renderKartu(daftarIkan) {
   fishCount.textContent = daftarIkan.length;
 
   daftarIkan.forEach((ikan, idx) => {
-    const badgeClass = ikan.kategori === "deepsea" ? "badge-deepsea" : "badge-freshwater";
-    const badgeLabel = ikan.kategori === "deepsea" ? "deepsea" : "freshwater";
+    const badgeClass = ikan.kategori === "deepsea" ? "badge-deepsea" : "badge-freshwater" :"badge-prehistoric";
+    const badgeLabel = ikan.kategori === "deepsea" ? "deepsea" : "freshwater" : "prehistoric";
 
     const card = document.createElement("div");
     card.className = "fish-card";
@@ -419,8 +419,8 @@ function bukaModal(id) {
   const ikan = dataIkan.find(i => i.id === id);
   if (!ikan) return;
 
-  const badgeClass = ikan.kategori === "deepsea" ? "badge-deepsea" : "badge-freshwater";
-  const badgeLabel = ikan.kategori === "deepsea" ? "deepsea" : "freshwater";
+  const badgeClass = ikan.kategori === "deepsea" ? "badge-deepsea" : "badge-freshwater" : "badge-prehistoric";
+  const badgeLabel = ikan.kategori === "deepsea" ? "deepsea" : "freshwater" : "prehistoric";
 
   document.getElementById("modalImg").src = ikan.gambar;
   document.getElementById("modalImg").alt = ikan.nama;
