@@ -299,9 +299,8 @@ const dataIkan = [
 
 ]; /* ===== AKHIR DATA IKAN ===== */
 
-
 /* ============================================================
-   VARIABEL STATE (jangan diubah)
+   VARIABEL STATE
    ============================================================ */
 let filterAktif = "semua";
 let querySearch = "";
@@ -311,12 +310,14 @@ let querySearch = "";
    RENDER KARTU IKAN
    ============================================================ */
 function renderKartu(daftarIkan) {
+
   const grid = document.getElementById("fishGrid");
   const noResult = document.getElementById("noResult");
   const fishCount = document.getElementById("fishCount");
 
   grid.innerHTML = "";
 
+  // Jika kosong
   if (daftarIkan.length === 0) {
     noResult.style.display = "block";
     fishCount.textContent = "0";
@@ -327,41 +328,99 @@ function renderKartu(daftarIkan) {
   fishCount.textContent = daftarIkan.length;
 
   daftarIkan.forEach((ikan, idx) => {
-    const badgeClass = ikan.kategori === "deepsea" ? "badge-deepsea" : "badge-freshwater" :"badge-prehistoric";
-    const badgeLabel = ikan.kategori === "deepsea" ? "deepsea" : "freshwater" : "prehistoric";
+
+    /* =========================
+       BADGE KATEGORI
+       ========================= */
+
+    let badgeClass = "";
+    let badgeLabel = "";
+
+    if (ikan.kategori === "deepsea") {
+      badgeClass = "badge-deepsea";
+      badgeLabel = "Laut Dalam";
+    }
+
+    else if (ikan.kategori === "freshwater") {
+      badgeClass = "badge-freshwater";
+      badgeLabel = "Air Tawar";
+    }
+
+    else if (ikan.kategori === "prehistoric") {
+      badgeClass = "badge-prehistoric";
+      badgeLabel = "Prasejarah";
+    }
+
+    /* =========================
+       CARD
+       ========================= */
 
     const card = document.createElement("div");
+
     card.className = "fish-card";
+
     card.style.animationDelay = `${idx * 0.06}s`;
 
     card.innerHTML = `
       <div class="card-img-wrap">
-        <img src="${ikan.gambar}" alt="${ikan.nama}" loading="lazy"
-             onerror="this.src='https://placehold.co/400x210/0a1a3a/00bcd4?text=Gambar+Tidak+Tersedia'" />
-        <span class="badge ${badgeClass}">${badgeLabel}</span>
+
+        <img
+          src="${ikan.gambar}"
+          alt="${ikan.nama}"
+          loading="lazy"
+
+          onerror="
+            this.src='https://placehold.co/400x210/0a1a3a/00bcd4?text=Gambar+Tidak+Tersedia'
+          "
+        />
+
+        <span class="badge ${badgeClass}">
+          ${badgeLabel}
+        </span>
+
       </div>
+
       <div class="card-body">
-        <h3 class="card-name">${ikan.nama}</h3>
-        <p class="card-scientific">${ikan.latin}</p>
+
+        <h3 class="card-name">
+          ${ikan.nama}
+        </h3>
+
+        <p class="card-scientific">
+          ${ikan.latin}
+        </p>
+
         <div class="card-info">
+
           <div class="card-info-row">
             <span class="card-info-label">Habitat</span>
             <span>${ikan.habitat}</span>
           </div>
+
           <div class="card-info-row">
             <span class="card-info-label">Ukuran</span>
             <span>${ikan.ukuran}</span>
           </div>
+
           <div class="card-info-row">
             <span class="card-info-label">Makanan</span>
             <span>${ikan.makanan}</span>
           </div>
+
         </div>
-        <button class="btn-detail" onclick="bukaModal(${ikan.id})">Lihat Detail</button>
+
+        <button
+          class="btn-detail"
+          onclick="bukaModal(${ikan.id})"
+        >
+          Lihat Detail
+        </button>
+
       </div>
     `;
 
     grid.appendChild(card);
+
   });
 }
 
@@ -370,45 +429,88 @@ function renderKartu(daftarIkan) {
    FILTER & SEARCH
    ============================================================ */
 function applyFilter() {
+
   let hasil = dataIkan;
 
-  // Filter kategori
+  /* =========================
+     FILTER KATEGORI
+     ========================= */
+
   if (filterAktif !== "semua") {
-    hasil = hasil.filter(i => i.kategori === filterAktif);
-  }
 
-  // Filter pencarian
-  if (querySearch.trim() !== "") {
-    const q = querySearch.toLowerCase();
-    hasil = hasil.filter(i =>
-      i.nama.toLowerCase().includes(q) ||
-      i.latin.toLowerCase().includes(q) ||
-      i.habitat.toLowerCase().includes(q)
+    hasil = hasil.filter(
+      ikan => ikan.kategori === filterAktif
     );
+
   }
 
-  // Update judul section
+  /* =========================
+     SEARCH
+     ========================= */
+
+  if (querySearch.trim() !== "") {
+
+    const q = querySearch.toLowerCase();
+
+    hasil = hasil.filter(ikan =>
+
+      ikan.nama.toLowerCase().includes(q) ||
+
+      ikan.latin.toLowerCase().includes(q) ||
+
+      ikan.habitat.toLowerCase().includes(q)
+
+    );
+
+  }
+
+  /* =========================
+     JUDUL SECTION
+     ========================= */
+
   const titles = {
     semua: "Semua Spesies",
     deepsea: "Ikan Laut Dalam",
     freshwater: "Ikan Air Tawar",
-     prehistoric:"Prasejarah"
+    prehistoric: "Ikan Prasejarah"
   };
-  document.getElementById("sectionTitle").textContent = titles[filterAktif] || "Semua Spesies";
+
+  document.getElementById("sectionTitle").textContent =
+    titles[filterAktif] || "Semua Spesies";
 
   renderKartu(hasil);
+
 }
 
+
+/* ============================================================
+   SET FILTER
+   ============================================================ */
 function setFilter(kategori, btn) {
+
   filterAktif = kategori;
-  document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+
+  document
+    .querySelectorAll(".filter-btn")
+    .forEach(b => b.classList.remove("active"));
+
   btn.classList.add("active");
+
   applyFilter();
+
 }
 
+
+/* ============================================================
+   SEARCH
+   ============================================================ */
 function filterFish() {
-  querySearch = document.getElementById("searchInput").value;
+
+  querySearch =
+    document.getElementById("searchInput").value;
+
   applyFilter();
+
 }
 
 
@@ -416,73 +518,189 @@ function filterFish() {
    MODAL DETAIL
    ============================================================ */
 function bukaModal(id) {
-  const ikan = dataIkan.find(i => i.id === id);
+
+  const ikan =
+    dataIkan.find(i => i.id === id);
+
   if (!ikan) return;
 
-  const badgeClass = ikan.kategori === "deepsea" ? "badge-deepsea" : "badge-freshwater" : "badge-prehistoric";
-  const badgeLabel = ikan.kategori === "deepsea" ? "deepsea" : "freshwater" : "prehistoric";
+  /* =========================
+     BADGE KATEGORI
+     ========================= */
 
-  document.getElementById("modalImg").src = ikan.gambar;
-  document.getElementById("modalImg").alt = ikan.nama;
-  document.getElementById("modalBadge").className = `badge ${badgeClass}`;
-  document.getElementById("modalBadge").textContent = badgeLabel;
-  document.getElementById("modalName").textContent = ikan.nama;
-  document.getElementById("modalScientific").textContent = ikan.latin;
-  document.getElementById("modalHabitat").textContent = ikan.habitat;
-  document.getElementById("modalUkuran").textContent = ikan.ukuran;
-  document.getElementById("modalMakanan").textContent = ikan.makanan;
-  document.getElementById("modalKedalaman").textContent = ikan.kedalaman || "—";
-  document.getElementById("modalStatus").textContent = ikan.status || "—";
+  let badgeClass = "";
+  let badgeLabel = "";
 
-  // Morfologi
-  const morfologiRow = document.getElementById("modalMorfologiRow");
+  if (ikan.kategori === "deepsea") {
+    badgeClass = "badge-deepsea";
+    badgeLabel = "Laut Dalam";
+  }
+
+  else if (ikan.kategori === "freshwater") {
+    badgeClass = "badge-freshwater";
+    badgeLabel = "Air Tawar";
+  }
+
+  else if (ikan.kategori === "prehistoric") {
+    badgeClass = "badge-prehistoric";
+    badgeLabel = "Prasejarah";
+  }
+
+  /* =========================
+     ISI MODAL
+     ========================= */
+
+  document.getElementById("modalImg").src =
+    ikan.gambar;
+
+  document.getElementById("modalImg").alt =
+    ikan.nama;
+
+  document.getElementById("modalBadge").className =
+    `badge ${badgeClass}`;
+
+  document.getElementById("modalBadge").textContent =
+    badgeLabel;
+
+  document.getElementById("modalName").textContent =
+    ikan.nama;
+
+  document.getElementById("modalScientific").textContent =
+    ikan.latin;
+
+  document.getElementById("modalHabitat").textContent =
+    ikan.habitat;
+
+  document.getElementById("modalUkuran").textContent =
+    ikan.ukuran;
+
+  document.getElementById("modalMakanan").textContent =
+    ikan.makanan;
+
+  document.getElementById("modalKedalaman").textContent =
+    ikan.kedalaman || "—";
+
+  document.getElementById("modalStatus").textContent =
+    ikan.status || "—";
+
+  /* =========================
+     MORFOLOGI
+     ========================= */
+
+  const morfologiRow =
+    document.getElementById("modalMorfologiRow");
+
   if (ikan.morfologi) {
-    document.getElementById("modalMorfologi").textContent = ikan.morfologi;
+
+    document.getElementById("modalMorfologi").textContent =
+      ikan.morfologi;
+
     morfologiRow.style.display = "flex";
+
   } else {
+
     morfologiRow.style.display = "none";
+
   }
 
-  document.getElementById("modalDeskripsi").textContent = ikan.deskripsi;
+  /* =========================
+     DESKRIPSI
+     ========================= */
 
-  // Catatan
-  const modalCatatan = document.getElementById("modalCatatan");
-  const modalCatatanWrap = document.getElementById("modalCatatanWrap");
+  document.getElementById("modalDeskripsi").textContent =
+    ikan.deskripsi;
+
+  /* =========================
+     CATATAN
+     ========================= */
+
+  const modalCatatan =
+    document.getElementById("modalCatatan");
+
+  const modalCatatanWrap =
+    document.getElementById("modalCatatanWrap");
+
   if (ikan.catatan) {
-    modalCatatan.textContent = ikan.catatan;
+
+    modalCatatan.textContent =
+      ikan.catatan;
+
     modalCatatanWrap.style.display = "flex";
+
   } else {
+
     modalCatatanWrap.style.display = "none";
+
   }
 
-  // Catatan Unik
-  const modalCatatanUnik = document.getElementById("modalCatatanUnik");
-  const modalCatatanUnikWrap = document.getElementById("modalCatatanUnikWrap");
+  /* =========================
+     FAKTA UNIK
+     ========================= */
+
+  const modalCatatanUnik =
+    document.getElementById("modalCatatanUnik");
+
+  const modalCatatanUnikWrap =
+    document.getElementById("modalCatatanUnikWrap");
+
   if (ikan.catatanUnik) {
-    modalCatatanUnik.textContent = ikan.catatanUnik;
+
+    modalCatatanUnik.textContent =
+      ikan.catatanUnik;
+
     modalCatatanUnikWrap.style.display = "flex";
+
   } else {
+
     modalCatatanUnikWrap.style.display = "none";
+
   }
 
-  document.getElementById("modalOverlay").classList.add("open");
+  /* =========================
+     BUKA MODAL
+     ========================= */
+
+  document
+    .getElementById("modalOverlay")
+    .classList.add("open");
+
   document.body.style.overflow = "hidden";
+
 }
 
+
+/* ============================================================
+   CLOSE MODAL
+   ============================================================ */
 function closeModal() {
-  document.getElementById("modalOverlay").classList.remove("open");
+
+  document
+    .getElementById("modalOverlay")
+    .classList.remove("open");
+
   document.body.style.overflow = "";
+
 }
 
-// Tutup modal dengan tombol Escape
+
+/* ============================================================
+   ESC CLOSE
+   ============================================================ */
 document.addEventListener("keydown", e => {
-  if (e.key === "Escape") closeModal();
+
+  if (e.key === "Escape") {
+    closeModal();
+  }
+
 });
 
 
 /* ============================================================
-   INIT — Jalankan saat halaman pertama kali dimuat
+   INIT
    ============================================================ */
 document.addEventListener("DOMContentLoaded", () => {
+
   renderKartu(dataIkan);
+
 });
+
