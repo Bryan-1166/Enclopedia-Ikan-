@@ -1,36 +1,5 @@
-/* ============================================================
-   ENSIKLOPEDIA IKAN — SCRIPT
-   script.js
-   ============================================================ */
-
-/* ============================================================
-   ===== DATA IKAN =====
-
-   Di sinilah Anda menambah, mengedit, atau menghapus data ikan.
-
-   Setiap objek ikan memiliki properti berikut:
-
-   id          : angka unik (jangan diubah urutannya, tambah saja di bawah)
-   nama        : nama umum ikan (string)
-   latin       : nama ilmiah / latin (string)
-   kategori    : "deepsea" atau "freshwater" (string, huruf kecil)
-   gambar      : URL gambar ikan (string) — bisa diganti dengan path lokal
-   habitat     : deskripsi habitat (string)
-   ukuran      : panjang tubuh (string, misal "15-20 cm")
-   makanan     : jenis makanan (string)
-   kedalaman   : kedalaman hidup (string, opsional — isi "" jika tidak ada)
-   status      : status konservasi (string, misal "Tidak Terancam", "Rentan", dll.)
-   deskripsi   : paragraf deskripsi singkat (string)
-   catatan     : fakta / catatan tambahan umum (string)
-   catatanUnik : fakta unik / menarik yang membedakan spesies ini (string)
-
-   ============================================================ */
-
 const dataIkan = [
 
-  /* ================================================================
-     BAGIAN I: IKAN AIR LAUT / LAUT DALAM (Marine / Deep Sea Species)
-     ================================================================ */
 
  {
   id: 1,
@@ -112,11 +81,6 @@ const dataIkan = [
   catatan: "Sebagian besar panjang tubuhnya didominasi oleh ekor tipis menyerupai cambuk.",
   catatanUnik: "Ujung ekornya memiliki organ bioluminesensi yang memancarkan cahaya merah muda untuk menarik mangsa di kegelapan laut dalam."
 },
-
-  /* ================================================================
-     BAGIAN II: IKAN AIR TAWAR (Freshwater Species)
-     ================================================================ */
-
   {
   id: 6,
   nama: "Pari Black Diamond",
@@ -357,38 +321,13 @@ const dataIkan = [
   catatan: "Termasuk ikan endotermik yang dapat mempertahankan suhu tubuh lebih hangat daripada air di sekitarnya.",
   catatanUnik: "Harus terus berenang agar aliran air tetap melewati insang dan proses pernapasan berlangsung optimal."
 }
-  /* ----- TAMBAHKAN DATA IKAN BARU DI SINI ----- */
-  /*
-  ,{
-    id: 11,                        // <- ganti angkanya (harus unik)
-    nama: "Nama Ikan",
-    latin: "Nama latin",
-    kategori: "deepsea",           // <- "deepsea" atau "freshwater"
-    gambar: "URL_GAMBAR_IKAN",
-    habitat: "Deskripsi habitat",
-    ukuran: "xx cm",
-    makanan: "Jenis makanan",
-    kedalaman: "xxx meter",
-    status: "Status konservasi",
-    morfologi: "Deskripsi ciri fisik / bentuk tubuh unik ikan ini.",
-    deskripsi: "Paragraf deskripsi singkat ikan ini...",
-    catatan: "Catatan / fakta tambahan umum tentang ikan ini.",
-    catatanUnik: "Fakta unik atau aneh yang membedakan spesies ini dari yang lain."
-  }
-  */
+]; 
 
-]; /* ===== AKHIR DATA IKAN ===== */
 
-/* ============================================================
-   VARIABEL STATE
-   ============================================================ */
 let filterAktif = "semua";
 let querySearch = "";
 
 
-/* ============================================================
-   RENDER KARTU IKAN
-   ============================================================ */
 function renderKartu(daftarIkan) {
 
   const grid = document.getElementById("fishGrid");
@@ -397,7 +336,7 @@ function renderKartu(daftarIkan) {
 
   grid.innerHTML = "";
 
-  // Jika kosong
+
   if (daftarIkan.length === 0) {
     noResult.style.display = "block";
     fishCount.textContent = "0";
@@ -409,9 +348,7 @@ function renderKartu(daftarIkan) {
 
   daftarIkan.forEach((ikan, idx) => {
 
-    /* =========================
-       BADGE KATEGORI
-       ========================= */
+
 
     let badgeClass = "";
     let badgeLabel = "";
@@ -431,9 +368,7 @@ function renderKartu(daftarIkan) {
       badgeLabel = "Prasejarah";
     }
 
-    /* =========================
-       CARD
-       ========================= */
+
 
     const card = document.createElement("div");
 
@@ -505,16 +440,11 @@ function renderKartu(daftarIkan) {
 }
 
 
-/* ============================================================
-   FILTER & SEARCH
-   ============================================================ */
 function applyFilter() {
 
   let hasil = dataIkan;
 
-  /* =========================
-     FILTER KATEGORI
-     ========================= */
+
 
   if (filterAktif !== "semua") {
 
@@ -524,9 +454,6 @@ function applyFilter() {
 
   }
 
-  /* =========================
-     SEARCH
-     ========================= */
 
   if (querySearch.trim() !== "") {
 
@@ -544,9 +471,6 @@ function applyFilter() {
 
   }
 
-  /* =========================
-     JUDUL SECTION
-     ========================= */
 
   const titles = {
     semua: "Semua Spesies",
@@ -563,9 +487,7 @@ function applyFilter() {
 }
 
 
-/* ============================================================
-   SET FILTER
-   ============================================================ */
+
 function setFilter(kategori, btn) {
 
   filterAktif = kategori;
@@ -581,9 +503,6 @@ function setFilter(kategori, btn) {
 }
 
 
-/* ============================================================
-   SEARCH
-   ============================================================ */
 function filterFish() {
 
   querySearch =
@@ -594,9 +513,8 @@ function filterFish() {
 }
 
 
-/* ============================================================
-   MODAL DETAIL
-   ============================================================ */
+
+
 function bukaModal(id) {
 
   const ikan =
@@ -604,9 +522,7 @@ function bukaModal(id) {
 
   if (!ikan) return;
 
-  /* =========================
-     BADGE KATEGORI
-     ========================= */
+
 
   let badgeClass = "";
   let badgeLabel = "";
@@ -626,9 +542,6 @@ function bukaModal(id) {
     badgeLabel = "Prasejarah";
   }
 
-  /* =========================
-     ISI MODAL
-     ========================= */
 
   document.getElementById("modalImg").src =
     ikan.gambar;
@@ -663,9 +576,7 @@ function bukaModal(id) {
   document.getElementById("modalStatus").textContent =
     ikan.status || "—";
 
-  /* =========================
-     MORFOLOGI
-     ========================= */
+
 
   const morfologiRow =
     document.getElementById("modalMorfologiRow");
@@ -683,16 +594,12 @@ function bukaModal(id) {
 
   }
 
-  /* =========================
-     DESKRIPSI
-     ========================= */
+
 
   document.getElementById("modalDeskripsi").textContent =
     ikan.deskripsi;
 
-  /* =========================
-     CATATAN
-     ========================= */
+
 
   const modalCatatan =
     document.getElementById("modalCatatan");
@@ -713,9 +620,7 @@ function bukaModal(id) {
 
   }
 
-  /* =========================
-     FAKTA UNIK
-     ========================= */
+
 
   const modalCatatanUnik =
     document.getElementById("modalCatatanUnik");
@@ -736,9 +641,7 @@ function bukaModal(id) {
 
   }
 
-  /* =========================
-     BUKA MODAL
-     ========================= */
+
 
   document
     .getElementById("modalOverlay")
@@ -748,10 +651,6 @@ function bukaModal(id) {
 
 }
 
-
-/* ============================================================
-   CLOSE MODAL
-   ============================================================ */
 function closeModal() {
 
   document
@@ -763,9 +662,7 @@ function closeModal() {
 }
 
 
-/* ============================================================
-   ESC CLOSE
-   ============================================================ */
+
 document.addEventListener("keydown", e => {
 
   if (e.key === "Escape") {
@@ -775,9 +672,7 @@ document.addEventListener("keydown", e => {
 });
 
 
-/* ============================================================
-   INIT
-   ============================================================ */
+
 document.addEventListener("DOMContentLoaded", () => {
 
   renderKartu(dataIkan);
