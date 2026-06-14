@@ -15,7 +15,6 @@
 
 <body>
 
-  <!-- ========== HEADER / HERO ========== -->
   <header class="hero">
 
     <div class="wave-container">
@@ -34,7 +33,7 @@
 
     <div class="hero-content">
 
-      <!-- LOGO -->
+
       <div class="logo">
         <span class="logo-icon">🐟</span>
         <h1>Ensiklopedia Ikan</h1>
@@ -44,7 +43,7 @@
         Jelajahi dunia kehidupan akuatik yang menakjubkan
       </p>
 
-      <!-- ========== SEARCH BAR ========== -->
+ 
       <div class="search-wrapper">
 
         <span class="search-icon">🔍</span>
@@ -59,7 +58,7 @@
 
       </div>
 
-      <!-- ========== FILTER BUTTONS ========== -->
+
       <div class="filter-buttons">
 
         <button
@@ -83,7 +82,7 @@
           💧 Air Tawar
         </button>
 
-        <!-- TAMBAHAN PREHISTORIC -->
+
         <button
           class="filter-btn"
           onclick="setFilter('prehistoric', this)"
@@ -97,10 +96,8 @@
   </header>
 
 
-  <!-- ========== MAIN CONTENT ========== -->
   <main class="main-content">
 
-    <!-- Background -->
     <div class="ocean-bg">
       <div class="ocean-layer layer-1"></div>
       <div class="ocean-layer layer-2"></div>
@@ -111,7 +108,7 @@
 
     <div class="container">
 
-      <!-- HEADER SECTION -->
+
       <div class="section-header">
 
         <h2 id="sectionTitle">
@@ -126,12 +123,12 @@
 
       </div>
 
-      <!-- ========== FISH GRID ========== -->
+
       <div class="fish-grid" id="fishGrid">
-        <!-- Render otomatis dari script.js -->
+
       </div>
 
-      <!-- NO RESULT -->
+
       <p
         class="no-result"
         id="noResult"
@@ -145,7 +142,7 @@
   </main>
 
 
-  <!-- ========== MODAL DETAIL ========== -->
+
   <div
     class="modal-overlay"
     id="modalOverlay"
@@ -157,7 +154,7 @@
       onclick="event.stopPropagation()"
     >
 
-      <!-- CLOSE -->
+
       <button
         class="modal-close"
         onclick="closeModal()"
@@ -165,7 +162,7 @@
         ✕
       </button>
 
-      <!-- IMAGE -->
+
       <img
         id="modalImg"
         src=""
@@ -175,10 +172,9 @@
 
       <div class="modal-body">
 
-        <!-- BADGE -->
+
         <span id="modalBadge" class="badge"></span>
 
-        <!-- TITLE -->
         <h2 id="modalName"></h2>
 
         <p
@@ -186,7 +182,7 @@
           class="modal-scientific"
         ></p>
 
-        <!-- INFO -->
+  
         <div class="modal-info">
 
           <div class="info-row">
@@ -214,7 +210,7 @@
             <span id="modalStatus"></span>
           </div>
 
-          <!-- MORFOLOGI -->
+ 
           <div
             class="info-row"
             id="modalMorfologiRow"
@@ -224,15 +220,10 @@
           </div>
 
         </div>
-
-        <!-- DESKRIPSI -->
         <p
           id="modalDeskripsi"
           class="modal-deskripsi"
         ></p>
-
-
-        <!-- CATATAN -->
         <div
           id="modalCatatanWrap"
           class="modal-catatan-box"
@@ -246,9 +237,6 @@
           </div>
 
         </div>
-
-
-        <!-- FAKTA UNIK -->
         <div
           id="modalCatatanUnikWrap"
           class="modal-catatan-box modal-catatan-unik-box"
@@ -267,8 +255,6 @@
     </div>
   </div>
 
-
-  <!-- ========== FOOTER ========== -->
   <footer class="footer">
 
     <p>
@@ -285,7 +271,6 @@
 
   </footer>
 
-  <!-- SCRIPT -->
   <script src="script.js"></script>
 
 </body>
